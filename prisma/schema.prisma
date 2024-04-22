@@ -1,0 +1,41 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Usuario {
+  id            String   @id @default(uuid())
+  nome          String
+  email         String   @unique
+  login         String   @unique
+  senha         String
+  criado_em     DateTime @default(now())
+  atualizado_em DateTime @default(now())
+  cartoes       Cartao[]
+
+  @@map("usuario")
+}
+
+model Cartao {
+  id                String   @id @default(uuid())
+  numero            String   @unique
+  nome_proprietario String
+  validade          String
+  ccv               Int
+  criado_em         DateTime @default(now())
+  atualizado_em     DateTime @default(now())
+  fk_cartao_usuario Usuario? @relation(fields: [id_usuario], references: [id])
+  id_usuario        String
+
+  @@map("cartao")
+}
