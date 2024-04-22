@@ -6,7 +6,6 @@ class ValidateCardService {
             throw Error("Número do cartão deve ser informado!")
         }
         const card = await prismaClient.cartao.findFirst({ where: { numero: cardNumber } });
-        console.log(card)
         if (!card) {
             return false;
         }
