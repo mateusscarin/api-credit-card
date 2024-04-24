@@ -6,9 +6,10 @@ class ValidateCardController {
 
         const userId: string = req.user_id;
         const cardNumber: string = req.params.cardNumber;
+        const cardCcv: number = Number(req.params.cardCcv);
 
         const validateCardService: ValidateCardService = new ValidateCardService();
-        const isValid = await validateCardService.execute(userId, cardNumber);
+        const isValid = await validateCardService.execute(userId, cardNumber, cardCcv);
 
         return res.json({ "isValid": isValid });
 
