@@ -14,7 +14,7 @@ router.post('/user', new CreateUserController().handle);
 router.post('/session', new AuthUserController().handle);
 router.get('/userinfo', isAuthenticated, new DetailUserController().handle);
 router.post('/card', isAuthenticated, new CreateCardController().handle);
-router.get('/card/:cardNumber/:cardCcv', isAuthenticated, new ValidateCardController().handle);
+router.post('/card/validate', isAuthenticated, new ValidateCardController().handle);
 router.get('/user/cards', isAuthenticated, new ListCardsByUserController().handle);
 
 export { router };
